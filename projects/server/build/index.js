@@ -5849,6 +5849,7 @@ var HTTPError = class extends Error {
     super(message);
     this.code = 500;
     Error.captureStackTrace(this, HTTPError);
+    this.name = "HTTPError";
     this.code = code;
   }
 };
@@ -5905,7 +5906,7 @@ WHERE app=$1
 `;
 function getByAPKName(name) {
   return async (client) => {
-    const rows = await client.query(apkByNameQuery, [name]);
+    const { rows } = await client.query(apkByNameQuery, [name]);
     return rows[0];
   };
 }

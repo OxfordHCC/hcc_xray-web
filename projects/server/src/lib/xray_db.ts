@@ -50,7 +50,7 @@ export function connectDatabase(config: DBConfig): WithClient {
 		const client = await pool.connect();
 		const queryRes = await fn(client);
 		client.release();
-
+		
 		return queryRes;
 	};
 
