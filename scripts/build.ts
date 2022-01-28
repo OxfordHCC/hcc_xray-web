@@ -1,5 +1,7 @@
 import path from 'path';
+import { stat } from "fs/promises";
 import { build } from 'esbuild';
+import { execFileSync } from 'child_process';
 
 
 const rootDir = path.resolve(__dirname, "../projects");
@@ -12,6 +14,21 @@ const targetPkgDir = path.join(rootDir, targetPkg);
 console.log(`Project directory: ${targetPkgDir}`);
 
 
+async function runPostBuild(){
+	const postBuildFile = path.join(targetPkgDir, "post-build.ts");
+	try{
+		await stat(postBuildFile);
+		console.log("Post-build script found in target directory. Running...");
+		execFileSync("npx",["ts-node", postBuildFile]);
+		console.log("Post build file done.");
+	}catch(err: any){
+		// only print if not ENOENT (if ENOENT we just silently skip);
+		if(err.code !== "ENOENT"){
+			console.error("Unknown error while running post build script...", err);
+		}
+	}
+}
+
 async function doBuild(){
 	console.log("Building...");
 	
@@ -23,8 +40,11 @@ async function doBuild(){
 			platform: 'node',
 			sourcemap: true
 		});
-		console.log("Done.");
-		console.log(buildRes);
+		console.log("es-build done");
+
+		await runPostBuild();
+
+		console.log("build done");
 		
 		return 0;
 	} catch (err) {
