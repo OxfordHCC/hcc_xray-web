@@ -24,6 +24,7 @@ async function doBuild(){
 			sourcemap: true
 		});
 		console.log("Done.");
+		console.log(buildRes);
 		
 		return 0;
 	} catch (err) {

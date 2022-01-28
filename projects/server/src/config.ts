@@ -17,36 +17,40 @@ type ReadConfigResult<T> = {
 	[index in keyof T]: T[index]
 }
 
-function nonNull(x: any): boolean{
+function isNullish(x: any): boolean{
 	if(x === undefined){
-		return false;
+		return true;
 	}
 
 	if(x === null){
-		return false;
+		return true;
 	}
 
-	if(isNaN(x)){
-		return false;
+	if(Number.isNaN(x)){
+		return true;
 	}
 
-	return true;
+	return false;
 }
 
 function parseParamValue(spec: ConfigParamSpec){
 	const defaultVal = spec.defaultValue;
 	const envVal = process.env[spec.env];
 
-	if(nonNull(envVal)){
-		return spec.parseFn.call(undefined, envVal);
+	if (!isNullish(envVal)) {
+		if(spec.parseFn !== undefined){
+			return spec.parseFn.call(undefined, envVal);
+		}	
+		return envVal;
 	}
-
 	return defaultVal;
 }
 
-function readConfigParam<T>(name: keyof T, spec: ConfigParamSpec): ReadConfigParamResult<T> {
+function readConfigParam<T>(
+	name: keyof T,
+	spec: ConfigParamSpec
+): ReadConfigParamResult<T> {
 	const value = parseParamValue(spec);
-
 	return { name, value };
 }
 
