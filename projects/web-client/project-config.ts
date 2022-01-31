@@ -2,10 +2,10 @@ import path from 'path';
 import { copyFile, mkdir } from 'fs/promises';
 import { ProjectConfig } from '../../scripts/build';
 
-
 type CopyStaticFileResult = {
 	error?: Error,
 }
+
 
 const SRC_DIR = path.join(__dirname, "./src");
 const BUILD_DIR = path.join(__dirname, "./build");
