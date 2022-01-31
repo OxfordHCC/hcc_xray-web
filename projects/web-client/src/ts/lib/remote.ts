@@ -1,6 +1,6 @@
 
-const API_HOST = "api";
-const API_PORT = 3001;
+const API_HOST = "xray_api";
+const API_PORT = 4001;
 
 const apiHostname = `http://${API_HOST}:${API_PORT}`;
 

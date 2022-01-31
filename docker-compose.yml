@@ -8,18 +8,18 @@ services:
       dockerfile: ./projects/web-client/Dockerfile
     ports:
       - '4000:80'
-  api:
+  xray_api:
     container_name: xray_api
     restart: unless-stopped
     build:
       context: .
       dockerfile: ./projects/server/Dockerfile
     environment:
-      XRAY_HTTP_PORT: 3001
+      XRAY_HTTP_PORT: 4001
       XRAY_HTTP_HOST: 0.0.0.0
       XRAY_PGUSER: treebirg
       XRAY_PGPASSWORD:
       XRAY_PGHOST: 192.168.0.23
     ports:
-      - '4001:3001'
+      - '4001:4001'
     
