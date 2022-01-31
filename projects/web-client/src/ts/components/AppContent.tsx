@@ -17,7 +17,7 @@ export function AppContent({ app }: AppContentParams){
 	return (
 		<div>
 			<h1>
-				{app.exodus_analysis.application.name}
+				{app.exodus_analysis?.application.name || "Unknown"}
 			</h1>
 
 			<dl>
@@ -25,10 +25,10 @@ export function AppContent({ app }: AppContentParams){
 				<dd>{app.app}</dd>
 
 				<dt>Version Name</dt>
-				<dd>{app.exodus_analysis.application.version_name}</dd>
+				<dd>{app.exodus_analysis?.application.version_name}</dd>
 
 				<dt>Version code</dt>
-				<dd>{app.exodus_analysis.application.version_code}</dd>
+				<dd>{app.exodus_analysis?.application.version_code}</dd>
 
 				<dt>Compile SDK Version</dt>
 				<dd>{app.manifest.manifest['-compileSdkVersion']}</dd>
@@ -37,7 +37,7 @@ export function AppContent({ app }: AppContentParams){
 				<dd>{app.manifest.manifest['-compileSdkVersionCodename']}</dd>
 
 				<dt>App Checksum</dt>
-				<dd>{app.exodus_analysis.apk.checksum}</dd>
+				<dd>{app.exodus_analysis?.apk.checksum}</dd>
 			</dl>
 
 
@@ -55,12 +55,12 @@ export function AppContent({ app }: AppContentParams){
 
 			<div>
 				<h2>Permissions</h2>
-				<JSONDisplay json={app.exodus_analysis.application.permissions} />
+				<JSONDisplay json={app.exodus_analysis?.application.permissions} />
 			</div>
 
 			<div>
 				<h2>Trackers</h2>
-				<JSONDisplay json={app.exodus_analysis.trackers} />
+				<JSONDisplay json={app.exodus_analysis?.trackers} />
 			</div>
 
 			<div>
@@ -68,6 +68,11 @@ export function AppContent({ app }: AppContentParams){
 				<JSONDisplay json={app.files} />
 			</div>
 
+			<hr/>
+			<div>
+				<h2>Raw</h2>
+				<JSONDisplay json={app}/>
+			</div>
 		</div>
 	);
 }

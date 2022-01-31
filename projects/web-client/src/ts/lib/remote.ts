@@ -39,7 +39,7 @@ export type App = {
 	app: string,
 	analyzed: boolean,
 	analysis_version: number, // what is this?
-	exodus_analysis: ExodusAnalysis,
+	exodus_analysis?: ExodusAnalysis,
 	manifest: Manifest,
 	files: string[],
 	urls: string[],

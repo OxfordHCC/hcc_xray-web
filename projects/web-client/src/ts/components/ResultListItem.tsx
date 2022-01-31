@@ -12,7 +12,7 @@ export function ResultListItem({ value }: ResultListItem ){
 	
 	return (
 		<div onClick={gotoAppScreen}>
-			<div>{value.exodus_analysis.application.name}</div>
+			<div>{value.exodus_analysis?.application.name || "Unknown"}</div>
 			<div>{value.app}</div>
 			<div>{value.store}</div>
 		</div>
