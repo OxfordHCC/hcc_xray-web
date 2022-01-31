@@ -11,7 +11,14 @@ type AppContentParams = {
 
 export function AppContent({ app }: AppContentParams){
 	if(app.analyzed === false){
-		return <div>App not yet analyzed</div>;
+		return (
+			<div>
+				<div>App not yet analyzed</div>
+				<hr/>
+				<h2>Raw </h2>
+				<JSONDisplay json={app}/>
+			</div>
+		);
 	}
 	
 	return (
@@ -39,8 +46,6 @@ export function AppContent({ app }: AppContentParams){
 				<dt>App Checksum</dt>
 				<dd>{app.exodus_analysis?.apk.checksum}</dd>
 			</dl>
-
-
 
 			<div>
 				<h2>Analysis Metadata</h2>
