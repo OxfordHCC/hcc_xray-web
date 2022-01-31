@@ -9,9 +9,6 @@ services:
       args:
         remote_host: localhost
         remote_port: 4001
-    environment:
-      XRAY_CLIENT_REMOTE_HOST: localhost
-      XRAY_CLIENT_REMOTE_PORT: 4001
     ports:
       - '4000:80'
   xray_api:
