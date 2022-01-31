@@ -4,12 +4,15 @@ import serverConfig from '../projects/server/project-config';
 import webClientConfig from '../projects/web-client/project-config';
 
 console.log('build init');
+
 export type ProjectConfig = {
 	buildOptions?: BuildOptions,
 	postBuild?: Function
 }
 
-const projectConfigurations: {[index: string]: ProjectConfig} = {
+export type LazyProjectConfig = () => ProjectConfig;
+
+const projectConfigurations: { [index: string]: LazyProjectConfig } = {
 	"server": serverConfig,
 	"web-client": webClientConfig
 };
@@ -20,7 +23,7 @@ console.debug(`Root directory: ${rootDir}`);
 const targetPkg = process.argv[2];
 console.log(`Project name: ${targetPkg}`);
 
-const project = projectConfigurations[targetPkg];
+const project = projectConfigurations[targetPkg]();
 
 
 const targetPkgDir = path.join(rootDir, targetPkg);

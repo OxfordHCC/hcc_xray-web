@@ -5,4 +5,4 @@ const project: ProjectConfig = {
 		platform: "node"
 	}
 }
-export default project;
+export default () => project;
