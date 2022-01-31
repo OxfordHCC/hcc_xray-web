@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: ./projects/web-client/Dockerfile
     environment:
-      XRAY_CLIENT_REMOTE_HOST: localhost,
+      XRAY_CLIENT_REMOTE_HOST: localhost
       XRAY_CLIENT_REMOTE_PORT: 4001
     ports:
       - '4000:80'

@@ -9,7 +9,7 @@ type CopyStaticFileResult = {
 const XRAY_CLIENT_REMOTE_HOST = process.env.XRAY_CLIENT_REMOTE_HOST;
 const XRAY_CLIENT_REMOTE_PORT = process.env.XRAY_CLIENT_REMOTE_PORT;
 
-if(XRAY_CLIENT_REMOTE_HOST === undefined){
+if(XRAY_CLIENT_REMOTE_HOST === undefined) {
 	throw "Missing XRAY_CLIENT_REMOTE_HOST env variable";
 }
 
