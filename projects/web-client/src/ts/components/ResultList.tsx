@@ -3,15 +3,15 @@ import { Loading } from './Loading';
 import { ResultListItem } from './ResultListItem';
 import { App } from '../lib/remote';
 
-type ResultList = {
+type ResultListParams = {
 	loading: boolean,
 	results: Array<App>
 }
-export function ResultList({ loading, results }){
+export function ResultList({ loading, results }: ResultListParams){
 	if(loading){
 		return <Loading />;
 	}
 	
 	return results
-		.map((res, i) => <ResultListItem value={res} key={i}/>);
+		.map(res => <ResultListItem value={res} key={res.app}/>);
 }

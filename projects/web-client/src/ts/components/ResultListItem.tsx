@@ -1,10 +1,20 @@
 import React from 'react';
+import { App } from '../lib/remote';
+import {gotoRoute} from '../lib/router';
 
 type ResultListItem = {
-	value: any
+	value: App
 }
 export function ResultListItem({ value }: ResultListItem ){
-	return <div>
-		{JSON.stringify(value)}
-	</div>
+	function gotoAppScreen(){
+		gotoRoute("#app", { app: value.app });
+	}
+	
+	return (
+		<div onClick={gotoAppScreen}>
+			<div>{value.exodus_analysis.application.name}</div>
+			<div>{value.app}</div>
+			<div>{value.store}</div>
+		</div>
+	)
 }

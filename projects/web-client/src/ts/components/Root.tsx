@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router } from './Router';
 
-export function App(){
+export function Root(){
 	return <Router/>;
 }

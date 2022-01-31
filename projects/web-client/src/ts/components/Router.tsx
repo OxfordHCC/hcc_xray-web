@@ -2,6 +2,7 @@ import React from "react";
 import {useState, useEffect } from 'react';
 import { HomeScreen } from './HomeScreen';
 import { QueryResultScreen } from './QueryResultScreen';
+import { AppScreen } from './AppScreen';
 
 function parseParamString(paramString?: string): any{
 	if(paramString === undefined){
@@ -46,9 +47,11 @@ export function Router(): JSX.Element {
 	}, []);
 
 	switch(route.name){
-		default:
-			return (<HomeScreen/>);
 		case "#query":
-			return <QueryResultScreen query={route.params['query']} />
+			return <QueryResultScreen query={route.params['query']} />;
+		case "#app":
+			return <AppScreen appId={route.params['app']}/>;
+		default:
+			return (<HomeScreen />);
 	}
 }
