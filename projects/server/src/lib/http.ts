@@ -30,8 +30,11 @@ type APIError = {
 	name: string,
 }
 
-type APIResponse = {
-	version: number,
+type APIMeta = {
+	version: number
+}
+
+type APIResponse = APIMeta & {
 	data?: {},
 	error?: APIError,
 }
@@ -82,7 +85,7 @@ function addRequestHandler(
 	return true;
 }
 
-function createAPIResponse(): APIResponse{
+export function getAPIMeta(): APIMeta{
 	return {
 		version: 1
 	}
@@ -126,6 +129,7 @@ export function createHTTPHandler() {
 		if (requestHandler === undefined) {
 			res.writeHead(404);
 			res.end();
+			console.log(`${method} ${pathname} ${res.statusCode}`);
 			return;
 		}
 
@@ -138,7 +142,7 @@ export function createHTTPHandler() {
 			
 			const data = await requestHandler(parsedReq);
 			const response = Object.assign(
-				createAPIResponse(),
+				getAPIMeta(),
 				{ data }
 			);
 			
@@ -152,7 +156,7 @@ export function createHTTPHandler() {
 			}
 
 			const response = Object.assign(
-				createAPIResponse(),
+				getAPIMeta(),
 				{
 					error: {
 						message: err.message,
