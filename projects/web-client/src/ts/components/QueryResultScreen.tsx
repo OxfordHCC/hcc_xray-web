@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { ResultList } from './ResultList';
+import { search } from '../lib/remote';
 
 type QueryResultScreen = {
 	query: string
@@ -8,18 +9,33 @@ type QueryResultScreen = {
 export function QueryResultScreen({ query }){
 	const [loading, setLoading] = useState<boolean>(true);
 	const [results, setResults ] = useState<Array<any>>([]);
+	const [error, setError] = useState<string | null>(null);
 	
 	useEffect(() => {
-		setTimeout(() => {
-			setResults(["some results", "here", "and there"]);
+
+		const doQuery = async function(){
+			const { error, data } = await search(query);
+			if(error){
+				setError(error.message);
+				console.error(error);
+				return
+			}
+			console.log("search result", data);
+			setError(null);
+			setResults(data['results']);
 			setLoading(false);
-		} , 2000);
-	});
+		}
+
+		doQuery();
+	}, [query]);
 	
 	return (
 		<div>
 			<h2>Query: {query}</h2>
 			<hr/>
+			{
+				(error !== null)? <span>{error}</span> : <></>
+			}
 			<ResultList loading={loading} results={results}/>
 		</div>
 	);

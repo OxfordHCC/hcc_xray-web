@@ -1,10 +1,11 @@
 import React from 'react';
 import { Loading } from './Loading';
 import { ResultListItem } from './ResultListItem';
+import { App } from '../lib/remote';
 
 type ResultList = {
 	loading: boolean,
-	results: Array<any>
+	results: Array<App>
 }
 export function ResultList({ loading, results }){
 	if(loading){

@@ -12,22 +12,28 @@ function parseParamString(paramString?: string): any{
 	return JSON.parse(decoded);
 }
 
+type Route = {
+	name: string,
+	params: any
+}
+
 export function Router(): JSX.Element {
-	const [route, setRoute] = useState<string>("");
-	const [params, setParams] = useState<any>({});
+	const [route, setRoute] = useState<Route>({name: "", params: {}});
 	console.log("route is", route);
-	console.log("params", params);
 
 	useEffect(() => {
 		const onHashChange = function() {
 			const hash = window.location.hash;
-			const [path, paramString] = hash.split("?");
+			const [name, paramString] = hash.split("?");
 			
-			const hashParams = parseParamString(paramString);
+			const params = parseParamString(paramString);
 
 			// change route
-			setRoute(path);
-			setParams(hashParams);
+			setRoute({
+				name,
+				params
+			});
+
 		};
 
 		onHashChange();
@@ -39,10 +45,10 @@ export function Router(): JSX.Element {
 		}
 	}, []);
 
-	switch(route){
+	switch(route.name){
 		default:
 			return (<HomeScreen/>);
 		case "#query":
-			return <QueryResultScreen query={params['query']} />
+			return <QueryResultScreen query={route.params['query']} />
 	}
 }

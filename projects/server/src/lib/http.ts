@@ -41,7 +41,6 @@ type APIResponse = APIMeta & {
 
 export type GET = (path: string, fn: APIRequestHandler) => boolean;
 
-//// 
 function createRTreeNode(): RTreeNode {
 	return {
 		nodes: {}
@@ -132,6 +131,9 @@ export function createHTTPHandler() {
 			console.log(`${method} ${pathname} ${res.statusCode}`);
 			return;
 		}
+
+		res.setHeader("Content-Type", "application/json");
+		res.setHeader("Access-Control-Allow-Origin", "*");
 
 		try {
 			const parsedReq = Object.assign(
