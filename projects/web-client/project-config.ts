@@ -1,5 +1,7 @@
 import path from 'path';
 import { copyFile, mkdir } from 'fs/promises';
+import { ProjectConfig } from '../../scripts/build';
+
 
 type CopyStaticFileResult = {
 	error?: Error,
@@ -31,7 +33,7 @@ async function copyStaticFile(srcFile: string): Promise<CopyStaticFileResult> {
 	}
 }
 
-export default async function copyStatic(){
+async function copyStatic(){
 	const staticFiles = [
 		`./index.html`
 	];
@@ -42,3 +44,13 @@ export default async function copyStatic(){
 			console.error(getError(res));
 	}));
 }
+
+
+const project: ProjectConfig = {
+	postBuild: copyStatic,
+	buildOptions: {
+		platform: "browser"
+	}
+}
+
+export default project;
