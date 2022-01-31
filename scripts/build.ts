@@ -3,7 +3,7 @@ import { build, BuildOptions } from 'esbuild';
 import serverConfig from '../projects/server/project-config';
 import webClientConfig from '../projects/web-client/project-config';
 
-
+console.log('build init');
 export type ProjectConfig = {
 	buildOptions?: BuildOptions,
 	postBuild?: Function

@@ -1,6 +1,8 @@
 
-const API_HOST = "xray_api";
-const API_PORT = 4001;
+// @ts-ignore
+const API_HOST = XRAY_API_HOST;
+// @ts-ignore
+const API_PORT = XRAY_API_PORT;
 
 const apiHostname = `http://${API_HOST}:${API_PORT}`;
 

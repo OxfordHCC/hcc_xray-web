@@ -6,6 +6,9 @@ services:
     build:
       context: .
       dockerfile: ./projects/web-client/Dockerfile
+    environemnt:
+      XRAY_HTTP_HOST: localhost,
+      XRAY_HTTP_PORT: 4001
     ports:
       - '4000:80'
   xray_api:

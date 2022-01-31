@@ -6,6 +6,16 @@ type CopyStaticFileResult = {
 	error?: Error,
 }
 
+const XRAY_API_HOST = process.env.XRAY_API_HOST;
+const XRAY_API_PORT = process.env.XRAY_API_PORT;
+
+if(XRAY_API_HOST === undefined){
+	throw "Missing XRAY_API_HOST env variable";
+}
+
+if(XRAY_API_PORT === undefined){
+	throw "Missing XRAY_API_PORT env variable";
+}
 
 const SRC_DIR = path.join(__dirname, "./src");
 const BUILD_DIR = path.join(__dirname, "./build");
@@ -49,6 +59,10 @@ async function copyStatic(){
 const project: ProjectConfig = {
 	postBuild: copyStatic,
 	buildOptions: {
+		define:{
+			XRAY_API_HOST: `"${XRAY_API_HOST}"`,
+			XRAY_API_PORT
+		},
 		platform: "browser"
 	}
 }
