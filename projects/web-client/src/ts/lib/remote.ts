@@ -60,7 +60,6 @@ type SearchResult = APIResult<{
 }>;
 
 export async function search(query: string): Promise<SearchResult>{
-	console.log("called search", query)
 	const reqUrl = new URL("/search", apiHostname);
 	reqUrl.searchParams.append("query", query);
 	const res = await fetch(reqUrl.toString());
@@ -71,7 +70,6 @@ export async function search(query: string): Promise<SearchResult>{
 
 type GetByIdResult = APIResult<App>;
 export async function getById(apk: string): Promise<GetByIdResult>{
-	console.log("called getById", apk);
 	const reqUrl = new URL("/android", apiHostname);
 	reqUrl.searchParams.append("apk", apk);
 	const res = await fetch(reqUrl.toString());

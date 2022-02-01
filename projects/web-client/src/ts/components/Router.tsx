@@ -20,7 +20,6 @@ type Route = {
 
 export function Router(): JSX.Element {
 	const [route, setRoute] = useState<Route>({name: "", params: {}});
-	console.log("route is", route);
 
 	useEffect(() => {
 		const onHashChange = function() {

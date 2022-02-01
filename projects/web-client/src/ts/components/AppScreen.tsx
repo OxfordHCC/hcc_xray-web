@@ -3,6 +3,10 @@ import { useEffect, useState } from 'react';
 import { getById, App } from '../lib/remote';
 import { AppContent } from './AppContent';
 import { Loading } from './Loading';
+import { Screen } from './Screen';
+import { Center } from './Center';
+import { NavBar } from 'antd-mobile';
+
 
 type AppScreenParams = {
 	appId: string
@@ -26,18 +30,18 @@ export function AppScreen({ appId }: AppScreenParams){
 	}, [appId]);
 
 	return (
-		<div>
+		<Screen>
 			{
 				(error !== null)
 				? <div>{error}</div>
 				: (
 					(app !== null)
 					? <AppContent app={app}/>
-					: <Loading/>
+					: <Center><Loading/></Center>
 				)
 				
 			}
-		</div>
+		</Screen>
 	);
 }
 

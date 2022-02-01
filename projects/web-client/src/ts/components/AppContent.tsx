@@ -1,6 +1,7 @@
 import React from 'react';
 import { JSONDisplay } from './JSONDisplay';
 import { App } from '../lib/remote';
+import { List, AutoCenter } from 'antd-mobile';
 
 type AppContentParams = {
 	app: App
@@ -10,7 +11,13 @@ type AppContentParams = {
 // should we just display one or the other?
 
 export function AppContent({ app }: AppContentParams){
-	if(app.analyzed === false){
+	// add raw app data to global variable to enable debugging / inspection
+	Object.assign(window, { xray_app: app });
+
+	console.info("App: ", app.app);
+	console.info("🔍 Type 'console.log(xray_app)' to show raw app data.");
+
+	if (app.analyzed === false) {
 		return (
 			<div>
 				<div>App not yet analyzed</div>
@@ -20,64 +27,51 @@ export function AppContent({ app }: AppContentParams){
 			</div>
 		);
 	}
+
+	const permissions = app.exodus_analysis?.application.permissions || [];
+	const trackers = app.exodus_analysis?.trackers || [];
 	
 	return (
 		<div>
-			<h1>
-				{app.exodus_analysis?.application.name || "Unknown"}
-			</h1>
+			<AutoCenter>
+				<h1>
+					{app.exodus_analysis?.application.name || "Unknown"}
+				</h1>
+			</AutoCenter>
 
-			<dl>
-				<dt>APK handle</dt>
-				<dd>{app.app}</dd>
+			<List mode="card">
+				<List.Item title="APK Handle">{app.app}</List.Item>
+				<List.Item title="Version Name">{app.exodus_analysis?.application.version_name}</List.Item>
+				<List.Item title="Version code">{app.exodus_analysis?.application.version_code}</List.Item>
+				<List.Item title="Compile SDK Version">{app.manifest.manifest['-compileSdkVersion']}</List.Item>
+				<List.Item title="Compile SDK Codename">{app.manifest.manifest['-compileSdkVersionCodename']}</List.Item>
 
-				<dt>Version Name</dt>
-				<dd>{app.exodus_analysis?.application.version_name}</dd>
+			</List>
 
-				<dt>Version code</dt>
-				<dd>{app.exodus_analysis?.application.version_code}</dd>
+			<List mode="card" header="Analysis Metadata">
+				<List.Item title="Analysis Version">{app.analysis_version}</List.Item>
+				<List.Item title="Last Analyzed">{app.last_analyze_attempt}</List.Item>
+				<List.Item title="APK Checksum">{app.exodus_analysis?.apk.checksum}</List.Item>
+			</List>
 
-				<dt>Compile SDK Version</dt>
-				<dd>{app.manifest.manifest['-compileSdkVersion']}</dd>
+			<List mode="card" header="Permissions">
+				{
+					permissions.map(p => <List.Item key={p}>{p}</List.Item>)
+				}
+			</List>
 
-				<dt>Compile SDK Codename</dt>
-				<dd>{app.manifest.manifest['-compileSdkVersionCodename']}</dd>
-
-				<dt>App Checksum</dt>
-				<dd>{app.exodus_analysis?.apk.checksum}</dd>
-			</dl>
-
-			<div>
-				<h2>Analysis Metadata</h2>
-				<dl>
-					<dt>Analysis Version</dt>
-					<dd>{app.analysis_version}</dd>
-
-					<dt>Last Analyzed</dt>
-					<dd>{app.last_analyze_attempt}</dd>
-				</dl>
-			</div>
-
-			<div>
-				<h2>Permissions</h2>
-				<JSONDisplay json={app.exodus_analysis?.application.permissions} />
-			</div>
-
-			<div>
-				<h2>Trackers</h2>
-				<JSONDisplay json={app.exodus_analysis?.trackers} />
-			</div>
+			<List mode="card" header="Trackers">
+				{
+					trackers.map(t => <List.Item key={t.id}>{t.name}</List.Item>)
+				}
+			</List>
 
 			<div>
 				<h2>Files</h2>
 				<JSONDisplay json={app.files} />
 			</div>
 
-			<hr/>
-			<div>
-				<h2>Raw</h2>
-				<JSONDisplay json={app}/>
-			</div>
+			<hr />
 		</div>
 	);
 }

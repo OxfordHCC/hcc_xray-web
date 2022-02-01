@@ -12,7 +12,6 @@ export function QueryResultScreen({ query }){
 	const [error, setError] = useState<string | null>(null);
 	
 	useEffect(() => {
-
 		const doQuery = async function(){
 			const { error, data } = await search(query);
 			if(error){
@@ -31,7 +30,7 @@ export function QueryResultScreen({ query }){
 	
 	return (
 		<div>
-			<h1>Query: {query}</h1>
+			<h1>Results for: {query}</h1>
 			{
 				(error !== null)? <span>{error}</span> : <></>
 			}
