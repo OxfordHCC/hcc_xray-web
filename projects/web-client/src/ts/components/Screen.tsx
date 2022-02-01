@@ -3,8 +3,11 @@ import React from 'react';
 export function Screen({children}){
 	return (
 		<div style={{
-			minHeight: "100vh",
-			backgroundColor: "#f5f7fa"
+			height: "100vh",
+			backgroundColor: "#f5f7fa",
+			overflow: "scroll",
+			display: "flex",
+			flexDirection: "column"
 		}}>
 			{children}
 		</div>

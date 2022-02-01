@@ -1,11 +1,17 @@
 import React from 'react';
+import { JsxElement } from 'typescript';
 
-export function Center({ children }){
+type CenterParams = {
+	style?: React.CSSProperties,
+	children: any
+}
+export function Center({ style, children }: CenterParams){
 	return <div style={{
 		height: "100%",
 		display: "flex",
 		flexDirection: "column",
 		justifyContent: "center",
-		alignItems: "center"
+		alignItems: "center",
+		...style
 	}}>{children}</div>
 }

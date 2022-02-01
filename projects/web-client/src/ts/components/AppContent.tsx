@@ -1,7 +1,8 @@
 import React from 'react';
 import { JSONDisplay } from './JSONDisplay';
 import { App } from '../lib/remote';
-import { List, AutoCenter } from 'antd-mobile';
+import { List, AutoCenter, ErrorBlock } from 'antd-mobile';
+import { Center } from './Center';
 
 type AppContentParams = {
 	app: App
@@ -19,15 +20,26 @@ export function AppContent({ app }: AppContentParams){
 
 	if (app.analyzed === false) {
 		return (
-			<div>
-				<div>App not yet analyzed</div>
-				<hr/>
-				<h2>Raw </h2>
-				<JSONDisplay json={app}/>
-			</div>
+			<>
+				<List mode="card">
+					<List.Item title="App">{app.app}</List.Item>
+					<List.Item title="Version">{app.version}</List.Item>
+				</List>
+
+				<Center>
+					<ErrorBlock
+						status="empty"
+						title="App not analyzed yet."
+						description={
+							<span>Soon, we will allow users to schedule app analyses. Until then, consider running the <a href="https://github.com/kasnder/platformcontrol-android-ios-analysis">Platformcontrol analysis</a> locally.</span>
+						}>
+					</ErrorBlock>
+				</Center>
+			</>
 		);
 	}
 
+	const version = app.version;
 	const permissions = app.exodus_analysis?.application.permissions || [];
 	const trackers = app.exodus_analysis?.trackers || [];
 	
@@ -40,8 +52,8 @@ export function AppContent({ app }: AppContentParams){
 			</AutoCenter>
 
 			<List mode="card">
-				<List.Item title="APK Handle">{app.app}</List.Item>
-				<List.Item title="Version Name">{app.exodus_analysis?.application.version_name}</List.Item>
+				<List.Item title="App">{app.app}</List.Item>
+				<List.Item title="Version Name">{version}</List.Item>
 				<List.Item title="Version code">{app.exodus_analysis?.application.version_code}</List.Item>
 				<List.Item title="Compile SDK Version">{app.manifest.manifest['-compileSdkVersion']}</List.Item>
 				<List.Item title="Compile SDK Codename">{app.manifest.manifest['-compileSdkVersionCodename']}</List.Item>
@@ -65,12 +77,6 @@ export function AppContent({ app }: AppContentParams){
 					trackers.map(t => <List.Item key={t.id}>{t.name}</List.Item>)
 				}
 			</List>
-
-			<div>
-				<h2>Files</h2>
-				<JSONDisplay json={app.files} />
-			</div>
-
 			<hr />
 		</div>
 	);

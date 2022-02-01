@@ -34,6 +34,7 @@ export type ExodusAnalysis = {
 }
 
 export type App = {
+	version: string,
 	store: string,
 	id: number,
 	app: string,
@@ -69,9 +70,10 @@ export async function search(query: string): Promise<SearchResult>{
 }
 
 type GetByIdResult = APIResult<App>;
-export async function getById(apk: string): Promise<GetByIdResult>{
+export async function getById(apk: string, version: string): Promise<GetByIdResult>{
 	const reqUrl = new URL("/android", apiHostname);
 	reqUrl.searchParams.append("apk", apk);
+	reqUrl.searchParams.append("version", version);
 	const res = await fetch(reqUrl.toString());
 	const jsonRes = await res.json();
 
