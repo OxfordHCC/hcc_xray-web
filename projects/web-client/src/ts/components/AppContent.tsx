@@ -5,13 +5,14 @@ import { List, AutoCenter, ErrorBlock } from 'antd-mobile';
 import { Center } from './Center';
 
 type AppContentParams = {
-	app: App
+	app: App,
+	versions: string[]
 }
 
 // Question: It seems like exodus analysis and the other analysis may be out of sync,
 // should we just display one or the other?
 
-export function AppContent({ app }: AppContentParams){
+export function AppContent({ app, versions }: AppContentParams){
 	// add raw app data to global variable to enable debugging / inspection
 	Object.assign(window, { xray_app: app });
 
