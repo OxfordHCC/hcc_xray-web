@@ -9,6 +9,7 @@ type CopyStaticFileResult = {
 export default function() {
 	const XRAY_CLIENT_REMOTE_HOST = process.env.XRAY_CLIENT_REMOTE_HOST;
 	const XRAY_CLIENT_REMOTE_PORT = process.env.XRAY_CLIENT_REMOTE_PORT;
+	const XRAY_CLIENT_REMOTE_SUFFIX = process.env.XRAY_CLIENT_REMOTE_SUFFIX;
 
 
 	if (XRAY_CLIENT_REMOTE_HOST === undefined) {
@@ -17,6 +18,10 @@ export default function() {
 
 	if (XRAY_CLIENT_REMOTE_PORT === undefined) {
 		throw "Missing XRAY_CLIENT_REMOTE_PORT env variable";
+	}
+
+	if (XRAY_CLIENT_REMOTE_SUFFIX === undefined){
+		throw "Missing XRAY_CLIENT_REMOTE_SUFFIX env variable";
 	}
 
 	const SRC_DIR = path.join(__dirname, "./src");
@@ -63,7 +68,8 @@ export default function() {
 		buildOptions: {
 			define: {
 				XRAY_API_HOST: `"${XRAY_CLIENT_REMOTE_HOST}"`,
-				XRAY_API_PORT: XRAY_CLIENT_REMOTE_PORT
+				XRAY_API_PORT: XRAY_CLIENT_REMOTE_PORT,
+				XRAY_API_SUFFIX: `"${XRAY_CLIENT_REMOTE_SUFFIX}"`
 			},
 			platform: "browser"
 		}

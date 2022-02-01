@@ -1,10 +1,15 @@
 
+// These are replaced by esbuild at build time
 // @ts-ignore
 const API_HOST = XRAY_API_HOST;
 // @ts-ignore
 const API_PORT = XRAY_API_PORT;
+// @ts-ignore
+const API_SUFFIX = XRAY_API_SUFFIX;
 
 const apiHostname = `http://${API_HOST}:${API_PORT}`;
+
+console.log("API_SUFFIX", API_SUFFIX);
 
 export type Manifest = {
 	manifest: {
@@ -60,8 +65,12 @@ type SearchResult = APIResult<{
 	results: App[]
 }>;
 
-export async function search(query: string): Promise<SearchResult>{
-	const reqUrl = new URL("/search", apiHostname);
+function createAPIUrl(path: string){
+	return new URL(`${API_SUFFIX}${path}`, apiHostname);
+}
+
+export async function search(query: string): Promise<SearchResult> {
+	const reqUrl = createAPIUrl("/search");
 	reqUrl.searchParams.append("query", query);
 	const res = await fetch(reqUrl.toString());
 	const jsonRes = await res.json();
@@ -71,7 +80,7 @@ export async function search(query: string): Promise<SearchResult>{
 
 type GetByIdResult = APIResult<App>;
 export async function getById(apk: string, version: string): Promise<GetByIdResult>{
-	const reqUrl = new URL("/android", apiHostname);
+	const reqUrl = createAPIUrl("/android");
 	reqUrl.searchParams.append("apk", apk);
 	reqUrl.searchParams.append("version", version);
 	const res = await fetch(reqUrl.toString());

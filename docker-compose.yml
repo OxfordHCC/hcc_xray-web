@@ -7,8 +7,9 @@ services:
       context: .
       dockerfile: ./projects/web-client/Dockerfile
       args:
-        remote_host: localhost
-        remote_port: 4001
+        remote_host: hcc.cs.ox.ac.uk
+        remote_port: 80
+        remote_suffix: /platformctrl-api
     ports:
       - '4000:80'
   xray_api:
