@@ -1,23 +1,18 @@
 import React from 'react';
-import { JSONDisplay } from './JSONDisplay';
 import { App } from '../lib/remote';
-import { List, AutoCenter, ErrorBlock } from 'antd-mobile';
+import { List, AutoCenter, ErrorBlock, Space, Button } from 'antd-mobile';
 import { Center } from './Center';
+import {gotoRoute} from '../lib/router';
 
 type AppContentParams = {
 	app: App,
-	versions: string[]
+	appVersions: string[]
 }
 
 // Question: It seems like exodus analysis and the other analysis may be out of sync,
 // should we just display one or the other?
 
-export function AppContent({ app, versions }: AppContentParams){
-	// add raw app data to global variable to enable debugging / inspection
-	Object.assign(window, { xray_app: app });
-
-	console.info("App: ", app.app);
-	console.info("🔍 Type 'console.log(xray_app)' to show raw app data.");
+export function AppContent({ app, appVersions }: AppContentParams){
 
 	if (app.analyzed === false) {
 		return (
@@ -43,6 +38,7 @@ export function AppContent({ app, versions }: AppContentParams){
 	const version = app.version;
 	const permissions = app.exodus_analysis?.application.permissions || [];
 	const trackers = app.exodus_analysis?.trackers || [];
+	const otherVersions = appVersions.filter(v => v !== app.version);
 	
 	return (
 		<div>
@@ -50,6 +46,33 @@ export function AppContent({ app, versions }: AppContentParams){
 				<h1>
 					{app.exodus_analysis?.application.name || "Unknown"}
 				</h1>
+				{
+					otherVersions.length > 0 && 
+					<Space justify="center" align="center">
+						<span style={{ fontSize: "1.2em" }}>
+							Other versions:
+						</span>
+						<Space>
+							{
+								otherVersions.map(v =>
+									<Button
+										key={v}
+										onClick={() => {
+											gotoRoute("#app", { app: app.app, version: v })
+										}
+										}
+										style={{
+											paddingRight: "30px",
+											paddingLeft: "30px"
+										}}
+										color="primary"
+									>
+										{v}
+									</Button>)
+							}
+						</Space>
+					</Space>
+				}
 			</AutoCenter>
 
 			<List mode="card">
@@ -78,7 +101,6 @@ export function AppContent({ app, versions }: AppContentParams){
 					trackers.map(t => <List.Item key={t.id}>{t.name}</List.Item>)
 				}
 			</List>
-			<hr />
 		</div>
 	);
 }

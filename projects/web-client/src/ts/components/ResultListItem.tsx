@@ -4,11 +4,12 @@ import { App } from '../lib/remote';
 import { gotoRoute } from '../lib/router';
 
 type ResultListItem = {
-	value: App
+	value: App,
+	version: string
 }
-export function ResultListItem({ value }: ResultListItem ){
+export function ResultListItem({ value, version }: ResultListItem ){
 	function gotoAppScreen(){
-		gotoRoute("#app", { app: value.app });
+		gotoRoute("#app", { app: value.app, version });
 	}
 
 	

@@ -7,7 +7,7 @@ WHERE app LIKE $1
 `;
 export function search(query: string){
 	return async(client: PoolClient) => {
-		const { rows } = await client.query(searchQuery, [`%${query}%`]);
+		const { rows } = await client.query(searchQuery, [query]);
 		return rows;
 	}
 }

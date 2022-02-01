@@ -49,7 +49,7 @@ export function Router(): JSX.Element {
 		case "#query":
 			return <QueryResultScreen query={route.params['query']} />;
 		case "#app":
-			return <AppScreen appId={route.params['app']}/>;
+			return <AppScreen appId={route.params['app']} version={route.params['version']}/>;
 		default:
 			return (<HomeScreen />);
 	}
