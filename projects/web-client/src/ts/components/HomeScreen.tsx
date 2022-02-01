@@ -1,14 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
 import { gotoRoute } from '../lib/router';
+import { Button, Input, Space, Form } from 'antd-mobile';
+import { Screen } from './Screen';
 
 
 export function HomeScreen(){
 	const [query, setQuery] = useState<string>("");
 
-	const updateQuery: React.ChangeEventHandler<HTMLInputElement> = function(evt){
-		const value = evt.target.value;
-		setQuery(value);
+	const updateQuery = function(val: string){
+		setQuery(val);
 	}
 
 	const gotoQuery = function(e){
@@ -17,14 +18,18 @@ export function HomeScreen(){
 	}
 	
 	return (
-		<div>
-			<div>
-				<h1>x-ray</h1>
-				<form action="#" onSubmit={gotoQuery}>
-					<input type="text" onChange={updateQuery} />
-					<input type="submit" value="Send"/>
-				</form>
-			</div>
-		</div>
+		<Screen>
+			<Space style={{
+				height: "100%"
+			}} justify="center" align="center" direction="vertical" block>
+				<h1>PlatformControl</h1>
+				<Form layout="horizontal">
+					<Form.Item
+						extra={<Button onClick={gotoQuery} color="primary">Go</Button>}>
+						<Input onEnterPress={gotoQuery} onChange={updateQuery} />
+					</Form.Item>
+				</Form>
+			</Space>
+		</Screen>
 	);
 }

@@ -30,5 +30,4 @@ export function registerAPIEndpoints(
 		}
 		return { results };
 	});
-
 }

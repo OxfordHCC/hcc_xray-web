@@ -31,8 +31,7 @@ export function QueryResultScreen({ query }){
 	
 	return (
 		<div>
-			<h2>Query: {query}</h2>
-			<hr/>
+			<h1>Query: {query}</h1>
 			{
 				(error !== null)? <span>{error}</span> : <></>
 			}

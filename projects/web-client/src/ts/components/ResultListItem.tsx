@@ -14,7 +14,6 @@ export function ResultListItem({ value }: ResultListItem ){
 		<div onClick={gotoAppScreen}>
 			<div>{value.exodus_analysis?.application.name || "Unknown"}</div>
 			<div>{value.app}</div>
-			<div>{value.store}</div>
 		</div>
 	)
 }

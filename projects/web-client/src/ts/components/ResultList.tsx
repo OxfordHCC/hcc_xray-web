@@ -12,6 +12,12 @@ export function ResultList({ loading, results }: ResultListParams){
 		return <Loading />;
 	}
 	
-	return results
-		.map(res => <ResultListItem value={res} key={res.app}/>);
+	return (
+		<>
+			{
+				results.map(res =>
+				<ResultListItem value={res} key={res.app}/>)
+			}
+		</>
+	);
 }

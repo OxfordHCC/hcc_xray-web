@@ -34,6 +34,7 @@ const defaultBuildOptions = {
 	entryPoints: [path.join(targetPkgDir, "src", "index.ts")],
 	outdir: path.join(targetPkgDir, "build"),
 	platform: 'node',
+	loader: { '.svg': 'file' },
 	sourcemap: true
 }
 

@@ -22,7 +22,7 @@ services:
       XRAY_HTTP_HOST: 0.0.0.0
       XRAY_PGUSER: treebirg
       XRAY_PGPASSWORD:
-      XRAY_PGHOST: 192.168.0.23
+      XRAY_PGHOST: localhost
     ports:
       - '4001:4001'
     

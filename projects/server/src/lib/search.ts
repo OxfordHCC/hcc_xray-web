@@ -1,9 +1,13 @@
 import { PoolClient } from 'pg';
-import { getByAPKName } from './android';
 
+const searchQuery = `
+SELECT * 
+FROM app_versions 
+WHERE app LIKE $1
+`;
 export function search(query: string){
 	return async(client: PoolClient) => {
-		const apkRes = await getByAPKName(query)(client);
-		return [apkRes].filter(x => x !== null && x !== undefined);
+		const { rows } = await client.query(searchQuery, [`%${query}%`]);
+		return rows;
 	}
 }
