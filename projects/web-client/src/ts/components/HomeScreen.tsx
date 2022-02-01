@@ -26,7 +26,7 @@ export function HomeScreen(){
 				<Form layout="horizontal">
 					<Form.Item
 						extra={<Button onClick={gotoQuery} color="primary">Go</Button>}>
-						<Input onEnterPress={gotoQuery} onChange={updateQuery} />
+						<Input placeholder="Search by app id" onEnterPress={gotoQuery} onChange={updateQuery} />
 					</Form.Item>
 				</Form>
 			</Space>
