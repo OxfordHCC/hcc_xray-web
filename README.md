@@ -1,10 +1,16 @@
-# xray-web
+# PlatformControlDB
 Public-facing service for querying xray data collected by Konrad Kollnig.
 
 # TODO:
-- web client
-- complete readme
+## Easy
+- Navigation toolbar 
+- App Icons when available
+
+## Moderate
 - iOS apps
-- Link Konrad's paper and xray tools for home analysis
+- clean-up database and create necessary columns to allow text search by app title
+
+## Hard
 - Create tools/protocols to crowd-source data
 - Support querying of other "things" (e.g. devices)
+
