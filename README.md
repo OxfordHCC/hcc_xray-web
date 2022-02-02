@@ -4,7 +4,8 @@ Public-facing service for querying xray data collected by Konrad Kollnig.
 # TODO:
 ## Easy
 - Navigation toolbar 
-- App Icons when available
+- fetch app icons from xray machine
+- complete README
 
 ## Moderate
 - iOS apps
@@ -13,4 +14,5 @@ Public-facing service for querying xray data collected by Konrad Kollnig.
 ## Hard
 - Create tools/protocols to crowd-source data
 - Support querying of other "things" (e.g. devices)
+
 
