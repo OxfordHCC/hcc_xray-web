@@ -6,8 +6,10 @@ const API_HOST = XRAY_API_HOST;
 const API_PORT = XRAY_API_PORT;
 // @ts-ignore
 const API_SUFFIX = XRAY_API_SUFFIX;
+// @ts-ignore
+const API_PROTOCOL = XRAY_API_PROTOCOL;
 
-const apiHostname = `http://${API_HOST}:${API_PORT}`;
+const apiHostname = `${API_PROTOCOL}://${API_HOST}:${API_PORT}`;
 
 console.log("API_SUFFIX", API_SUFFIX);
 

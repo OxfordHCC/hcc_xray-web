@@ -7,6 +7,7 @@ services:
       context: .
       dockerfile: ./projects/web-client/Dockerfile
       args:
+        remote_protocol: https
         remote_host: hcc.cs.ox.ac.uk
         remote_port: 80
         remote_suffix: /platformctrl-api
