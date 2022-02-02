@@ -33,7 +33,7 @@ export function HomeScreen(){
 					marginLeft: "30px",
 					marginRight: "30px"
 				}}>This website queries the data collected by Konrad Kollnig as part of the "xray2020" database, featured in <a href="https://doi.org/10.14763/2021.4.1611">Kollnig 2021</a>.</div>
-				<div>Development of this app can be followed at <a href="https://github.com/treebirg/"></a>.</div>
+				<div>Development of this app can be followed on <a href="https://github.com/treebirg/hcc_xray-web">Github</a>.</div>
 				<div>For more tools, see <a href="https://platformcontrol.org">platformcontrol.org</a>.</div>
 			</Space>
 		</Screen>
